@@ -4,8 +4,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
 nav.header a{
@@ -15,4 +15,12 @@ nav.header a{
 }
 nav.header a:hover{
     color: orange;
+}
+.signout-btn{
+    color: white;
+    background: transparent;
+}
+.signout-btn:hover{
+    color: rgb(222, 157, 36);
+    border: none;
 }
