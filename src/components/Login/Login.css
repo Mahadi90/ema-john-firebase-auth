@@ -29,3 +29,7 @@
 .link-btn{
     color: rgb(226, 167, 59);
 }
+.show-pass{
+    cursor: pointer;
+    color: rgb(48, 242, 23);
+}

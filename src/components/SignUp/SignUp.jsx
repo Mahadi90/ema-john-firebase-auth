@@ -8,7 +8,7 @@ const SignUp = () => {
 
     const {createUser} = useContext(AuthContext)
     // console.log(createUser)
-
+    const [show, setShow] =useState(false)
     const handleSignUp = event => {
 
       event.preventDefault()
@@ -51,11 +51,17 @@ const SignUp = () => {
                 </div>
                 <div className="form-control">
                     <label htmlFor="">Password</label>
-                    <input type="password" name="password" required />
+                    <input type={show ? 'text' : "password"} name="password" required />
                 </div>
                 <div className="form-control">
                     <label htmlFor="">Confirm Password</label>
-                    <input type="password" name="confirm" required />
+                    <input type={show ? 'text' : "password"} name="confirm" required />
+                    <p className='show-pass' onClick={() => setShow(!show)}>
+                        <span>{
+                            show?   "Hide PAssword": "Show Password"
+                            }
+                        </span>
+                    </p>
                     <p><small>Already have an account? Please <Link className='link-btn' to='/login'>LogIn</Link></small></p>
                 </div>
                 <div className="form-control">

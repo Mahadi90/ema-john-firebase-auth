@@ -1,14 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, Navigate, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 import './Login.css'
+
 
 const Login = () => {
 
 
     const {signIn} = useContext(AuthContext)
     const Navigate = useNavigate();
-
+const [show, setShow] =useState(false)
     const location = useLocation();
 
     const from = location.state?.from?.pathname || '/';
@@ -42,7 +43,13 @@ const Login = () => {
                 </div>
                 <div className="form-control">
                     <label htmlFor="">Password</label>
-                    <input type="password" name="password" required />
+                    <input type={show ? 'text' : "password"} name="password" required />
+                    <p className='show-pass' onClick={() => setShow(!show)}>
+                        <span>{
+                            show?   "Hide PAssword": "Show Password"
+                            }
+                        </span>
+                    </p>
                     <p><small>Are you new here? Please <Link className='link-btn' to='/signup'>SignUp</Link></small></p>
                 </div>
                 <div className="form-control">
