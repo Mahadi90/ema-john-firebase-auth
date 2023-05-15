@@ -25,3 +25,10 @@
     justify-content: space-between;
     align-items: center;
 }
+.pagination{
+    margin-bottom: 20px;
+    text-align: center;
+}
+.pagination .selected{
+    background-color: #FF9900;
+}

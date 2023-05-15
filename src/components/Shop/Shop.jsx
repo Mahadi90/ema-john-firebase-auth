@@ -3,17 +3,34 @@ import { addToDb, deleteShoppingCart, getShoppingCart } from '../../utilities/fa
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css';
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([])
+    const [currentPage, setCurrentPage] = useState(0)
+    const {TotalProducts} = useLoaderData()
+    // console.log(TotalProducts)
+    const itemsPerPage = 10; //TODO- Make it dynamic
+    const totalPages = Math.ceil(TotalProducts / itemsPerPage)
+
+    const pageNumbers = [...Array(totalPages).keys()]
+
+    // useEffect(() => {
+    //     fetch('http://localhost:5000/products')
+    //         .then(res => res.json())
+    //         .then(data => setProducts(data))
+    // }, []);
 
     useEffect(() => {
-        fetch('http://localhost:5000/products')
-            .then(res => res.json())
-            .then(data => setProducts(data))
-    }, []);
+        async function fetchData() {
+            const res = await fetch(`http://localhost:5000/products?page=${currentPage}&limit=${itemsPerPage}`)
+
+            const data = await res.json()
+            setProducts(data)
+        }
+        fetchData()
+    },[currentPage, itemsPerPage])
 
     useEffect(() => {
         const storedCart = getShoppingCart();
@@ -62,6 +79,7 @@ const Shop = () => {
     }
 
     return (
+       <>
         <div className='shop-container'>
             <div className="products-container">
                 {
@@ -83,6 +101,20 @@ const Shop = () => {
                 </Cart>
             </div>
         </div>
+
+        {/* pagination */}
+
+        <div className="pagination">
+            <h3>Current Page : {currentPage}</h3>
+            {
+                pageNumbers.map(pagenumber => <button 
+                    key={pagenumber}
+                    className={currentPage === pagenumber ? 'selected' : ''}
+                    onClick={() => setCurrentPage(pagenumber)}
+                    >{pagenumber}</button>)
+            }
+        </div>
+       </>
     );
 };
 
